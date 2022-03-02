@@ -1,0 +1,37 @@
+{
+  "name": "ahj-http-backend",
+  "version": "1.0.0",
+  "description": "ahj-http-backend",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "forever server.js",
+    "watch": "forever -w server.js",
+    "st": "nodemon server.js"
+  },
+  "engines": {
+    "node": "14.17.3",
+    "npm": "6.14.13"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Svetlana-Kutyeva1974/ahj-http-backend.git"
+  },
+  "author": "Kutyova Svetlana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Svetlana-Kutyeva1974/ahj-http-backend/issues"
+  },
+  "homepage": "https://github.com/Svetlana-Kutyeva1974/ahj-http-backend#readme",
+  "dependencies": {
+    "forever": "^4.0.3",
+    "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
+    "koa2-cors": "^2.0.6",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "xmlhttprequest": "^1.8.0"
+  }
+}

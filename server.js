@@ -59,8 +59,9 @@ app.use(async ctx => {
   
   console.log('ctx.request.querystring---', ctx.request.querystring, decodeURIComponent(ctx.request.querystring));
   const {name, phone} = `${decodeURIComponent(ctx.request.querystring)}`;
-  // or const {name, phone} = ctx.request.body;
-  console.log('ctx.request.body', ctx.request.body, name, phone);
+  // or 
+  const {name1, phone1} = ctx.request.body;
+  console.log('ctx.request.body', ctx.request.body, name, phone, name1, phone1);
   // заголовки
   // const { name, phone } = ctx.request.body;
     ctx.response.set({
@@ -161,6 +162,7 @@ xhr.addEventListener('readystatechange', (evt) => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         console.log('ok status 200, response', xhr.response);
+        // https://server-heroku-7.herokuapp.com/ // deploy
       }
     }
   });
@@ -236,3 +238,4 @@ xhr.send();
 //ps -la // Для получения основных сведений о процессах, запущенных текущем пользователем
 //ps -ela  // Для всех пользователей 
 // ps -a  // Базовая информация для текущего пользователя
+//

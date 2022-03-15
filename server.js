@@ -6,7 +6,7 @@ const uuid = require('uuid');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 // require('xmlhttprequest');
 // const cors = require('koa2-cors');
-const port = process.env.PORT || 7079;
+const port = process.env.PORT || 7080;
 // const public = path.join(__dirname, 'public');
 const cors = require('koa2-cors');
 

@@ -2,12 +2,13 @@
   "name": "ahj-http-backend",
   "version": "1.0.0",
   "description": "ahj-http-backend",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "prestart": "npm install",
     "start": "forever server.js",
     "watch": "forever -w server.js",
-    "st": "nodemon server.js"
+    "st": "nodemon server.js",
+    "stop": "forever stopall"
   },
   "engines": {
     "node": "14.17.3",

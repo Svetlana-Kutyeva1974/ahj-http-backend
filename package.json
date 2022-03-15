@@ -2,7 +2,7 @@
   "name": "ahj-http-backend",
   "version": "1.0.0",
   "description": "ahj-http-backend",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "prestart": "npm install",
     "start": "forever server.js",

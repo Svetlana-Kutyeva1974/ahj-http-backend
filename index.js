@@ -1,2 +1,2 @@
-const app = require('./server.js');
+const app = require('./server');
 app.start();

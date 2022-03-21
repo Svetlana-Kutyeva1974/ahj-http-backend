@@ -6,7 +6,7 @@ const uuid = require('uuid');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 // require('xmlhttprequest');
 // const cors = require('koa2-cors');
-const port = process.env.PORT || 7084;
+const port = process.env.PORT || 7070;
 // const public = path.join(__dirname, 'public');
 const cors = require('koa2-cors');
 
@@ -77,6 +77,40 @@ app.use(koaBody({
     json: true,
   }));
 
+
+//==== заголовки обработка=== из презы
+app.use(async (ctx, next) => {
+  const origin = ctx.request.get('Origin');
+  if (!origin) {
+    return await next();
+  } 
+  const headers = { 'Access-Control-Allow-Origin': '*', };
+  if (ctx.request.method !== 'OPTIONS') {
+    ctx.response.set({...headers});
+  try {
+    return await next();
+  } catch (e) {
+    e.headers = {...e.headers, ...headers};
+    throw e;// проброс исключения 
+    // alert(e);// throw new Error(e);
+  }
+  } 
+
+  if (ctx.request.get('Access-Control-Request-Method')) {
+  ctx.response.set({
+  ...headers,
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
+  });
+
+  if (ctx.request.get('Access-Control-Request-Headers')) {
+    ctx.response.set('Access-Control-Allow-Headers', ctx.request.get('Access-Control-Allow-Request-Headers'));
+  } 
+  ctx.response.status = 204; // No content
+  }
+  });
+  
+//======
+
 app.use(async ctx => {
   // что хотим получить
   
@@ -96,11 +130,12 @@ app.use(async ctx => {
   console.log('ctx.request.body===', ctx.request.body, name, phone, name1, phone1);
   // заголовки
   // const { name, phone } = ctx.request.body;
-  
+  /*
     ctx.response.set({
     'Access-Control-Allow-Origin': '*',
     });
-
+   */ 
+    
   // здесь можем обработать данные
    //for task
    // const params = new URLSearchParams(ctx.request.querystring);
@@ -122,21 +157,25 @@ app.use(async ctx => {
       return;
     case 'createTicket':
       const nextId = ticketsFull.length;
-      ticketsFull[nextId] = new TicketFull(nextId, body.title, body.description, false, new Date().toString().slice(3,21));
-      // ticketsFull.push(new TicketFull(nextId, body.title, body.description, false, new Date().toString().slice(3,21)));
-      ticketsFull.push(ticketsFull[nextId]);
+      // ticketsFull[nextId] = new TicketFull(nextId, body.title, body.description, false, new Date().toString().slice(3,21));
+      ticketsFull.push(new TicketFull(`${uuid.v4()}`, body.title, body.description, false, new Date().toString().slice(3,21)));
+      // ticketsFull.push(ticketsFull[nextId]);
       ctx.response.body = ticketsFull[nextId];
-      console.log('new tiket length ', ticketsFull.length, ticketsFull[nextId]);
+      console.log('new tiket length ', ticketsFull.length, ticketsFull[nextId], ctx.response.body);
       return;
     case 'editTicket':
-      const index = body.id;
-      ticketsFull[index].name = body.title;
-      ticketsFull[index].description = body.description;
-      ctx.response.body = ticketsFull[index];
+      // const index = body.id;
+      const indexDescription = ticketsFull.findIndex((ticket) => +ticket.id === +id); 
+      ticketsFull[indexDescription].name = body.title;
+      ticketsFull[indexDescription].description = body.description;
+
+      // ctx.response.body = ticketsFull[index];
+      const indexEdit = ticketsFull.findIndex((ticket) => +ticket.id === +id); 
+      ctx.response.body = ticketsFull[indexEdit];
       return;
     case 'deleteTicket':
       const ind = ticketsFull.findIndex((ticket) => +ticket.id === +id);
-      console.log('index', ind);
+      console.log('index in array, array', ind, ticketsFull);
       ctx.response.body = 'del';
       ticketsFull.splice(ind, 1);
       return;
@@ -151,35 +190,37 @@ app.use(async ctx => {
 //------------const server = http.createServer(app.callback()).listen(port);
 
 //==== заголовки обработка=== из презы
+/*
 app.use(async (ctx, next) => {
-    const origin = ctx.request.get('Origin');
-    if (!origin) {
-      return await next();
-    } 
-    const headers = { 'Access-Control-Allow-Origin': '*', };
-    if (ctx.request.method !== 'OPTIONS') {
-      ctx.response.set({...headers});
-    try {
-      return await next();
-    } catch (e) {
-      e.headers = {...e.headers, ...headers};
-      throw e;// проброс исключения 
-      // alert(e);// throw new Error(e);
-    }
-    } 
+  const origin = ctx.request.get('Origin');
+  if (!origin) {
+    return await next();
+  } 
+  const headers = { 'Access-Control-Allow-Origin': '*', };
+  if (ctx.request.method !== 'OPTIONS') {
+    ctx.response.set({...headers});
+  try {
+    return await next();
+  } catch (e) {
+    e.headers = {...e.headers, ...headers};
+    throw e;// проброс исключения 
+    // alert(e);// throw new Error(e);
+  }
+  } 
 
-    if (ctx.request.get('Access-Control-Request-Method')) {
-    ctx.response.set({
-    ...headers,
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
-    });
+  if (ctx.request.get('Access-Control-Request-Method')) {
+  ctx.response.set({
+  ...headers,
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
+  });
 
-    if (ctx.request.get('Access-Control-Request-Headers')) {
-      ctx.response.set('Access-Control-Allow-Headers', ctx.request.get('Access-Control-Allow-Request-Headers'));
-    } 
-    ctx.response.status = 204; // No content
-    }
-    });
+  if (ctx.request.get('Access-Control-Request-Headers')) {
+    ctx.response.set('Access-Control-Allow-Headers', ctx.request.get('Access-Control-Allow-Request-Headers'));
+  } 
+  ctx.response.status = 204; // No content
+  }
+  });
+  */
 //======
 
 
@@ -228,13 +269,16 @@ xhr.send('<body>')
 */
 
 // const url = `http://localhost:${port}/?${encodeURIComponent(queryString)}`;
+
 let url = new URL(`http://localhost:${port}/`);
+ // let url = new URL(`https://server-74.herokuapp.com`);
+//https://ahj-http-back.herokuapp.com'
 // const url = `http://localhost:${port}/`;
 url.searchParams.set(`method`, 'allTickets');
-// url.searchParams.set(`id`, '1');
+url.searchParams.set(`id`, '1');
 const xhr = new XMLHttpRequest();
 // 
-xhr.responseType = 'json';
+// xhr.responseType = 'json';
 // event listener here
 xhr.addEventListener('readystatechange', (evt) => {
     if (xhr.readyState === 4) {

@@ -66,6 +66,7 @@ app.use(koaBody({
     json: true,
   }));
 
+const server = http.createServer(app.callback()).listen(port);
 
 //==== заголовки обработка=== из презы
 app.use(async (ctx, next) => {
@@ -237,12 +238,11 @@ setTimeout(() => {
 
 // const url = `http://localhost:${port}/?${encodeURIComponent(queryString)}`;
 
-//let url = new URL(`http://localhost:${port}/`);
-let url = new URL(`https://server-74.herokuapp.com`);
+// let url = new URL(`http://localhost:${port}/`);
+let url = new URL(`https://server-74.herokuapp.com/`);
 url.searchParams.set(`method`, 'allTickets');
 url.searchParams.set(`id`, `${uuid.v4()}`);
-const xhr = new XMLHttpRequest();
-// xhr.responseType = 'json';// event listener here
+const xhr = new XMLHttpRequest();// xhr.responseType = 'json';// event listener here
 xhr.addEventListener('readystatechange', (evt) => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
@@ -253,7 +253,8 @@ xhr.addEventListener('readystatechange', (evt) => {
 xhr.open('GET', url, true);
 xhr.send();
 
-const server = http.createServer(app.callback()).listen(port);
+// const server = http.createServer(app.callback()).listen(port);
+//console.log('\n for dialog \n ok status 200, response=============');
 /*
 setTimeout(() => {
   server.close();

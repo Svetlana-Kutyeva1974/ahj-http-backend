@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "forever  --minUptime 5000 --spinSleepTime 3000 server.js",
-    "watch": "forever  --minUptime 5000 --spinSleepTime 3000 -w server.js",
+    "start": "forever server.js",
+    "watch": "forever -w server.js",
     "st": "nodemon server.js",
     "stop": "forever stopall"
   },

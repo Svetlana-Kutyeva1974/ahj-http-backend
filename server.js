@@ -244,7 +244,7 @@ url.searchParams.set(`method`, 'allTickets');
 url.searchParams.set(`id`, `${uuid.v4()}`);
 const xhr = new XMLHttpRequest();// xhr.responseType = 'json';// event listener here
 // xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+
 xhr.addEventListener('readystatechange', (evt) => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
@@ -253,6 +253,8 @@ xhr.addEventListener('readystatechange', (evt) => {
     }
   });
 xhr.open('GET', url, true);
+xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+// вручную поставила заголовок
 xhr.send();
 
 // const server = http.createServer(app.callback()).listen(port);
@@ -337,4 +339,6 @@ setTimeout(() => {
 //ps -la // Для получения основных сведений о процессах, запущенных текущем пользователем
 //ps -ela  // Для всех пользователей 
 // ps -a  // Базовая информация для текущего пользователя
-//
+// opshion package.json:
+// "start": "forever  --minUptime 5000 --spinSleepTime 3000 server.js",
+// "watch": "forever  --minUptime 5000 --spinSleepTime 3000 -w server.js",

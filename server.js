@@ -237,10 +237,10 @@ setTimeout(() => {
 
 // const url = `http://localhost:${port}/?${encodeURIComponent(queryString)}`;
 
-// let url = new URL(`http://localhost:${port}/`);
-let url = new URL(`https://server-74.herokuapp.com/`);
+//let url = new URL(`http://localhost:${port}/`);
+let url = new URL(`https://server-74.herokuapp.com`);
 url.searchParams.set(`method`, 'allTickets');
-url.searchParams.set(`id`, '1');
+url.searchParams.set(`id`, `${uuid.v4()}`);
 const xhr = new XMLHttpRequest();
 // xhr.responseType = 'json';// event listener here
 xhr.addEventListener('readystatechange', (evt) => {
@@ -252,7 +252,6 @@ xhr.addEventListener('readystatechange', (evt) => {
   });
 xhr.open('GET', url, true);
 xhr.send();
-
 
 const server = http.createServer(app.callback()).listen(port);
 /*

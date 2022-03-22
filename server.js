@@ -33,6 +33,7 @@ let ticketsFull = [
   new TicketFull(`${uuid.v4()}`, 'Переустановить Win', 'Переустановить Windows 10,пк холл 24', false, new Date().toString().slice(3,21)),
   new TicketFull(`${uuid.v4()}`, 'Поменять cartridge', 'Поменять краску в принтере, ком #404', true, new Date().toString().slice(3,21)),
   new TicketFull(`${uuid.v4()}`, 'Установить обновление', 'Установить обновление КВ-ХХХ', true, new Date().toString().slice(3,21))
+
 ];
 
 

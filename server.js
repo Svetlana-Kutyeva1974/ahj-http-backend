@@ -243,6 +243,8 @@ let url = new URL(`https://server-74.herokuapp.com/`);
 url.searchParams.set(`method`, 'allTickets');
 url.searchParams.set(`id`, `${uuid.v4()}`);
 const xhr = new XMLHttpRequest();// xhr.responseType = 'json';// event listener here
+// xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 xhr.addEventListener('readystatechange', (evt) => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {

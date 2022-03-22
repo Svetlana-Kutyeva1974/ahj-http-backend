@@ -235,57 +235,24 @@ setTimeout(() => {
 */
 
 
-//----------------
-//--------ьбщий вид запрос на сервер
-/*
-const xhr = new XMLHttpRequest(); // создание объекта
-xhr.open('<method>', '<url>', '<async>'); // подготовка запроса
-xhr.setRequestHeader('<name>', '<value>'); // установка заголовков
-xhr.setRequestHeader('<name>', '<value>');
-xhr.addEventListener('readystatechange', (evt) => {
-  if (xhr.readyState === 4) {
-    if (xhr.status === 200) {
-      console.log(xhr.response);
-    }
-  }
-});
-xhr.send('<body>')
-*/
-
-// const queryString = `name=Vasya&phone=89167932127`;
-// const url = `http://localhost:${port}/?${encodeURIComponent(queryString)}`;
-/*for (let key in data) {
-  url.searchParams.append(`${key}`, data[key]);
-  console.log(url);
-}
-*/
-
 // const url = `http://localhost:${port}/?${encodeURIComponent(queryString)}`;
 
 // let url = new URL(`http://localhost:${port}/`);
-let url = new URL(`https://server-74.herokuapp.com`);
-
-
-//https://ahj-http-back.herokuapp.com'
-// const url = `http://localhost:${port}/`;
+let url = new URL(`https://server-74.herokuapp.com/`);
 url.searchParams.set(`method`, 'allTickets');
 url.searchParams.set(`id`, '1');
 const xhr = new XMLHttpRequest();
-// 
-// xhr.responseType = 'json';
-// event listener here
+// xhr.responseType = 'json';// event listener here
 xhr.addEventListener('readystatechange', (evt) => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         console.log('\n for dialog \n ok status 200, response', xhr.response);
-        // https://server-heroku-7.herokuapp.com/ // deploy
       }
     }
   });
 xhr.open('GET', url, true);
 xhr.send();
 
-//-------------?name=Vasya&phone=%2B79000000000
 
 const server = http.createServer(app.callback()).listen(port);
 /*

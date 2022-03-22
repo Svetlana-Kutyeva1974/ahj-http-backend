@@ -51,18 +51,6 @@ function findTicket(id) {
 }
 
 
-// слушаем определённый порт
-/*server.listen(port, (err) => {
-if (err) {
-  console.log('Error occured:', error);
-return;
-}
-  console.log(`server is listening on ${port}`);
-});
-*/
-// ====без koa
-
-
 
 //-----koa-body--- организация сервера
 const Koa = require('koa');
@@ -131,11 +119,11 @@ app.use(async ctx => {
   console.log('ctx.request.body===', ctx.request.body, name, phone, name1, phone1);
   // заголовки
   // const { name, phone } = ctx.request.body;
-  /*
+  
     ctx.response.set({
     'Access-Control-Allow-Origin': '*',
     });
-   */ 
+  
     
   // здесь можем обработать данные
    //for task
@@ -274,8 +262,10 @@ xhr.send('<body>')
 
 // const url = `http://localhost:${port}/?${encodeURIComponent(queryString)}`;
 
-let url = new URL(`http://localhost:${port}/`);
- // let url = new URL(`https://server-74.herokuapp.com`);
+// let url = new URL(`http://localhost:${port}/`);
+let url = new URL(`https://server-74.herokuapp.com`);
+
+
 //https://ahj-http-back.herokuapp.com'
 // const url = `http://localhost:${port}/`;
 url.searchParams.set(`method`, 'allTickets');

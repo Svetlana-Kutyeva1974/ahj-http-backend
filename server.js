@@ -3,7 +3,7 @@ const http = require('http');
 const fs = require('fs');
 const uuid = require('uuid');
 // const {URL} = require('url');
-const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+// const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 // require('xmlhttprequest');
 const port = process.env.PORT || 7070;
 // const public = path.join(__dirname, 'public');
